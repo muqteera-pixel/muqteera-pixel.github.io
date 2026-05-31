@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<title>Master League Manager — Install App</title>
+<link rel="manifest" href="manifest.json"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Master League TM"/>
+<meta name="theme-color" content="#06080f"/>
+<meta name="monetag" content="18ab9345606f6ad808919c82fd344fea"/>
+<!-- Monetag Vignette Banner (Interstitial) -->
+<script>(function(s){s.dataset.zone='11019167',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+<!-- Monetag Push Notifications -->
+<script src="https://5gvci.com/act/files/tag.min.js?z=11019288" data-cfasync="false" async></script>
+<script>
+(function(){
+  var s=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone;
+  if(s){ window.location.replace('./index.html?go=1'); }
+})();
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:#06080f}
+body{font-family:'Exo 2',sans-serif;color:#ddeeff;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100dvh;position:relative;overflow-y:auto;overflow-x:hidden;padding:100px 0 40px}
+/* 100px top padding pushes card below the 2 ads (~90px tall) */
+.bg-rays{position:fixed;inset:0;z-index:0;background:conic-gradient(from 225deg at 50% 42%,transparent 0deg,rgba(0,80,255,.13) 18deg,transparent 36deg,transparent 54deg,rgba(0,200,80,.10) 72deg,transparent 90deg,transparent 126deg,rgba(255,40,0,.10) 144deg,transparent 162deg,transparent 198deg,rgba(180,0,255,.10) 216deg,transparent 234deg,transparent 270deg,rgba(0,207,255,.08) 288deg,transparent 306deg);animation:rayspin 18s linear infinite}
+@keyframes rayspin{to{transform:rotate(360deg)}}
+.bg-glow{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 70% 55% at 50% 40%,rgba(0,50,120,.55) 0%,transparent 70%)}
+.bg-grid{position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(0,207,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,207,255,.04) 1px,transparent 1px);background-size:40px 40px}
+.card{position:relative;z-index:10;width:min(92vw,380px);background:rgba(11,17,32,.92);border:1px solid rgba(0,207,255,.22);border-radius:28px;padding:32px 24px 28px;text-align:center;backdrop-filter:blur(18px);box-shadow:0 0 0 1px rgba(0,207,255,.07),0 30px 80px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.06);animation:cardIn .55s cubic-bezier(.22,1,.36,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(28px) scale(.96)}to{opacity:1;transform:none}}
+.icon-wrap{width:90px;height:90px;border-radius:20px;overflow:hidden;margin:0 auto 18px;border:2px solid rgba(0,207,255,.3);box-shadow:0 8px 32px rgba(0,207,255,.28),0 2px 8px rgba(0,0,0,.6);animation:iconPop .65s .1s cubic-bezier(.34,1.56,.64,1) both;position:relative;display:flex;align-items:center;justify-content:center;font-size:40px}
+.icon-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+@keyframes iconPop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+.app-name{font-family:'Orbitron',sans-serif;font-size:clamp(17px,5vw,23px);font-weight:900;letter-spacing:3px;background:linear-gradient(135deg,#00cfff,#0055dd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:3px;animation:fadeUp .5s .15s both}
+.app-sub{font-family:'Orbitron',sans-serif;font-size:8px;letter-spacing:6px;color:#4a6a8a;margin-bottom:18px;animation:fadeUp .5s .2s both}
+.app-desc{font-size:12px;color:#6a8aaf;line-height:1.7;margin-bottom:18px;animation:fadeUp .5s .25s both}
+.badges{display:flex;gap:6px;justify-content:center;margin-bottom:18px;animation:fadeUp .5s .28s both;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:1px;padding:3px 9px;border-radius:5px}
+.badge-cyan{background:rgba(0,207,255,.1);color:#00cfff;border:1px solid rgba(0,207,255,.27)}
+.badge-green{background:rgba(0,230,118,.1);color:#00e676;border:1px solid rgba(0,230,118,.27)}
+.badge-gold{background:rgba(255,215,0,.1);color:#ffd700;border:1px solid rgba(255,215,0,.27)}
+.steps-box{background:rgba(0,207,255,.05);border:1px solid rgba(0,207,255,.13);border-radius:14px;padding:14px 16px;margin-bottom:18px;text-align:left;animation:fadeUp .5s .3s both}
+.steps-title{font-family:'Orbitron',sans-serif;font-size:8px;letter-spacing:3px;color:#3a5a7a;margin-bottom:11px;text-align:center}
+.step{display:flex;align-items:flex-start;gap:11px;margin-bottom:9px}
+.step:last-child{margin-bottom:0}
+.step-num{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#00cfff,#0055dd);color:#000;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:12px;color:#8aaac8;line-height:1.6}
+.step-text b{color:#c8e0f0;font-weight:700}
+.btn-install{width:100%;padding:14px;border:none;border-radius:13px;background:linear-gradient(135deg,#00cfff,#0055dd);color:#000;font-weight:800;font-size:15px;font-family:'Exo 2',sans-serif;letter-spacing:.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;box-shadow:0 6px 28px rgba(0,207,255,.38);animation:fadeUp .5s .38s both;margin-bottom:9px}
+.btn-install:active{transform:scale(.97)}
+.btn-open{width:100%;padding:11px;border:1px solid rgba(0,207,255,.18);border-radius:13px;background:transparent;color:#3a5a7a;font-weight:600;font-size:12px;font-family:'Exo 2',sans-serif;cursor:pointer;transition:all .2s;animation:fadeUp .5s .43s both}
+.success{display:none;flex-direction:column;align-items:center;gap:8px}
+.s-ico{font-size:48px;animation:iconPop .5s cubic-bezier(.34,1.56,.64,1) both}
+.s-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:#00e676;letter-spacing:2px}
+.s-sub{font-size:11px;color:#3a5a7a;line-height:1.6;text-align:center}
+.s-bar{width:100%;height:4px;background:rgba(0,230,118,.12);border-radius:2px;overflow:hidden;margin-top:8px}
+.s-fill{height:100%;background:linear-gradient(90deg,#00cfff,#00e676);border-radius:2px;animation:fillBar 2.4s linear forwards}
+@keyframes fillBar{from{width:0}to{width:100%}}
+.arrow-hint{position:fixed;top:10px;right:10px;z-index:999;display:none;flex-direction:column;align-items:flex-end;gap:5px;animation:fadeUp .4s both}
+.arrow-bubble{background:rgba(0,207,255,.95);color:#000;font-size:11px;font-weight:700;font-family:'Exo 2',sans-serif;padding:8px 12px;border-radius:12px 12px 2px 12px;max-width:190px;text-align:right;line-height:1.5}
+.arrow-ico{font-size:26px;margin-right:3px;animation:bounce .7s ease infinite alternate}
+@keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-5px)}}
+.ios-hint{position:fixed;bottom:0;left:0;right:0;z-index:999;display:none;flex-direction:column;align-items:center;padding:16px 20px 28px;background:linear-gradient(to top,rgba(6,8,15,.98),rgba(6,8,15,.88));border-top:1px solid rgba(0,207,255,.2);backdrop-filter:blur(14px);animation:slideUp .4s cubic-bezier(.22,1,.36,1) both}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.ios-hint-text{font-size:13px;color:#8aaac8;text-align:center;line-height:1.8;margin-bottom:12px}
+.ios-hint-text b{color:#ddeeff}
+.ios-close{background:none;border:1px solid rgba(0,207,255,.2);border-radius:8px;color:#3a5a7a;padding:7px 24px;font-family:'Exo 2',sans-serif;cursor:pointer;font-size:12px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
+.foot{position:relative;z-index:10;font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:3px;color:#1a3050;margin-top:16px;animation:fadeUp .5s .5s both}
+</style>
+</head>
+<body>
+<div class="bg-rays"></div>
+<div class="bg-glow"></div>
+<div class="bg-grid"></div>
+
+<div class="arrow-hint" id="androidHint">
+  <div class="arrow-ico">☰</div>
+  <div class="arrow-bubble">Tap <b>⋮</b> menu,<br>then <b>"Add to Home screen"</b></div>
+</div>
+
+<div class="ios-hint" id="iosHint">
+  <div class="ios-hint-text">Tap the <b>Share ⬆️</b> button in Safari,<br>then tap <b>"Add to Home Screen"</b> → <b>Add</b></div>
+  <button class="ios-close" onclick="document.getElementById('iosHint').style.display='none'">Got it ✓</button>
+</div>
+
+<div class="card" id="mainCard">
+  <div class="icon-wrap">
+    <img src="icon-192x192.png" alt="Master League TM" onerror="this.parentNode.innerHTML='⚽'"/>
+  </div>
+  <div class="app-name">eFOOTBALL TM</div>
+  <div class="app-sub">TOURNAMENT MANAGER</div>
+  <div class="badges">
+    <span class="badge badge-cyan">⚡ FREE</span>
+    <span class="badge badge-green">✓ ONLINE</span>
+    <span class="badge badge-gold">🏆 LEAGUES</span>
+  </div>
+  <div class="app-desc">Create leagues, track live scores, manage players — install the app for the best experience.</div>
+  <div class="steps-box">
+    <div class="steps-title" id="stepsTitle">HOW TO INSTALL</div>
+    <div id="stepsContent"></div>
+  </div>
+  <button class="btn-install" id="installBtn" onclick="handleInstall()">
+    <span id="btnIcon">📲</span> <span id="btnText">Add to Home Screen</span>
+  </button>
+  <button class="btn-open" onclick="openApp()">Open in browser instead →</button>
+  <div class="success" id="successState">
+    <div class="s-ico">🎉</div>
+    <div class="s-title">APP INSTALLED!</div>
+    <div class="s-sub">Opening Master League Manager…</div>
+    <div class="s-bar"><div class="s-fill"></div></div>
+  </div>
+</div>
+<div class="foot">© MUQTEERA · EFOOTBALL TOURNAMENT MANAGER</div>
+
+<script>
+// ── Register Service Worker (REQUIRED for real PWA install) ──
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js')
+    .then(function(reg){ console.log('SW registered',reg.scope); })
+    .catch(function(e){ console.warn('SW failed',e); });
+}
+
+var ua=navigator.userAgent;
+var isIOS=/iPhone|iPad|iPod/.test(ua)&&!window.MSStream;
+var isAndroid=/Android/.test(ua);
+var isSafari=isIOS&&/Safari/.test(ua)&&!/CriOS|FxiOS|OPiOS/.test(ua);
+var isChrome=/Chrome/.test(ua)&&!isIOS;
+var isSamsung=/SamsungBrowser/.test(ua);
+var deferredPrompt=null;
+var promptReady=false;
+
+// ── Capture the real browser install prompt ──
+window.addEventListener('beforeinstallprompt',function(e){
+  e.preventDefault();
+  deferredPrompt=e;
+  promptReady=true;
+  // Update button to show it's ready to install for real
+  document.getElementById('btnText').textContent='Install App Now';
+  document.getElementById('btnIcon').textContent='⬇️';
+  document.getElementById('installBtn').style.boxShadow='0 6px 32px rgba(0,230,118,.5)';
+  document.getElementById('installBtn').style.background='linear-gradient(135deg,#00e676,#00a855)';
+  // Update step 1 text for Chrome Android
+  if(isAndroid&&isChrome){
+    document.getElementById('stepsContent').innerHTML=
+      step(1,'Tap the <b>green Install button</b> below — ready now!')+
+      step(2,'Tap <b>"Install"</b> in the popup that appears')+
+      step(3,'<b>Master League TM</b> icon will appear on your home screen!');
+  }
+});
+
+function step(n,h){return '<div class="step"><div class="step-num">'+n+'</div><div class="step-text">'+h+'</div></div>';}
+var s='';
+if(isSafari){
+  s=step(1,'Tap the <b>Share ⬆️</b> button at the bottom of Safari')+
+    step(2,'Tap <b>"Add to Home Screen"</b>')+
+    step(3,'Tap <b>Add</b> — icon appears on your home screen!');
+  document.getElementById('btnText').textContent='Show me how ↓';
+  setTimeout(function(){document.getElementById('iosHint').style.display='flex';},900);
+}else if(isIOS){
+  s=step(1,'Open this page in <b>Safari</b> browser')+
+    step(2,'Tap the <b>Share ⬆️</b> button')+
+    step(3,'Tap <b>"Add to Home Screen"</b> → <b>Add</b>');
+}else if(isSamsung){
+  s=step(1,'Tap the <b>Menu ⋮</b> button (top right)')+
+    step(2,'Tap <b>"Add page to"</b> → <b>"Home screen"</b>')+
+    step(3,'Tap <b>Add</b> — done! 🎮');
+  setTimeout(function(){var h=document.getElementById('androidHint');h.style.display='flex';setTimeout(function(){h.style.display='none';},7000);},700);
+}else if(isAndroid&&isChrome){
+  s=step(1,'Wait a moment for the <b>Install button</b> to activate…')+
+    step(2,'Tap it — a popup appears, tap <b>"Install"</b>')+
+    step(3,'Find <b>Master League TM</b> icon on your home screen!');
+}else if(isAndroid){
+  s=step(1,'Tap the <b>Menu ⋮</b> in your browser')+
+    step(2,'Tap <b>"Add to Home Screen"</b>')+
+    step(3,'Tap <b>Add</b> and launch from your home screen 🎮');
+  setTimeout(function(){var h=document.getElementById('androidHint');h.style.display='flex';setTimeout(function(){h.style.display='none';},7000);},700);
+}else{
+  s=step(1,'Open this link on your <b>mobile phone</b>')+
+    step(2,'Tap <b>"Add to Home Screen"</b> in your browser menu')+
+    step(3,'Enjoy Master League TM as a home screen app!');
+  document.getElementById('stepsTitle').textContent='BEST ON MOBILE';
+  document.getElementById('btnText').textContent='Open Web App';
+}
+document.getElementById('stepsContent').innerHTML=s;
+
+// ── Handle install button tap ──
+async function handleInstall(){
+  if(deferredPrompt){
+    // Real native install — this puts the app on the home screen
+    deferredPrompt.prompt();
+    var r=await deferredPrompt.userChoice;
+    deferredPrompt=null;
+    if(r.outcome==='accepted'){
+      showSuccess();
+    } else {
+      // User dismissed — offer browser option
+      document.getElementById('btnText').textContent='Try Again';
+    }
+  }else if(isSafari){
+    document.getElementById('iosHint').style.display='flex';
+  }else if(isAndroid){
+    // Prompt not fired yet — show menu hint and explain
+    var h=document.getElementById('androidHint');
+    h.style.display='flex';
+    setTimeout(function(){h.style.display='none';},8000);
+    // Also try via menu in case beforeinstallprompt never fires (Samsung etc)
+    document.getElementById('btnText').textContent='Use menu ⋮ instead';
+  }else{
+    openApp();
+  }
+}
+
+function showSuccess(){
+  var sels=['.app-name','.app-sub','.badges','.app-desc','.steps-box','.btn-open','#installBtn'];
+  sels.forEach(function(sel){var e=document.querySelector(sel);if(e)e.style.display='none';});
+  document.getElementById('successState').style.display='flex';
+  setTimeout(openApp,2800);
+}
+
+function openApp(){ window.location.href='./index.html?go=1'; }
+
+// ── appinstalled fires when the OS confirms install ──
+window.addEventListener('appinstalled',function(){
+  console.log('PWA installed successfully');
+  showSuccess();
+});
+</script>
+</body>
+</html>

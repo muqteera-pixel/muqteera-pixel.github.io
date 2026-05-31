@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<title>Master League TM — User Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#06080f;--surface:#0b1120;--card:#111827;
+  --border:#1c3050;--accent:#00cfff;--accent2:#0055dd;
+  --gold:#ffd700;--green:#00e676;--red:#ff3d57;--orange:#ff9800;
+  --text:#ddeeff;--muted:#4a6a8a;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-height:100vh;overflow-x:hidden}
+
+/* ── BG ── */
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,207,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,207,255,.03) 1px,transparent 1px);background-size:40px 40px}
+
+/* ── HEADER ── */
+.header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(6,8,15,.92);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(16px);
+  padding:14px 20px;
+  display:flex;align-items:center;gap:12px;
+}
+.header-back{
+  background:none;border:1px solid var(--border);
+  border-radius:8px;color:var(--muted);
+  padding:6px 10px;cursor:pointer;font-size:16px;
+  transition:.2s;
+}
+.header-back:active{color:var(--accent)}
+.header-title{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:900;letter-spacing:3px;color:var(--accent)}
+.header-sub{font-size:10px;color:var(--muted);letter-spacing:2px;font-family:'Orbitron',sans-serif}
+
+/* ── TOC ── */
+.toc{
+  position:relative;z-index:1;
+  display:flex;gap:8px;overflow-x:auto;
+  padding:14px 20px;scrollbar-width:none;
+}
+.toc::-webkit-scrollbar{display:none}
+.toc-btn{
+  flex-shrink:0;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;padding:6px 14px;
+  color:var(--muted);font-size:11px;font-weight:700;
+  font-family:'Exo 2',sans-serif;cursor:pointer;
+  transition:.2s;white-space:nowrap;
+}
+.toc-btn.active,.toc-btn:active{background:rgba(0,207,255,.12);border-color:var(--accent);color:var(--accent)}
+
+/* ── SECTIONS ── */
+.sections{position:relative;z-index:1;padding:0 16px 100px}
+
+.section{
+  margin-bottom:10px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  background:var(--surface);
+  transition:.3s;
+}
+.section.open{border-color:rgba(0,207,255,.3)}
+
+.section-header{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;cursor:pointer;
+  user-select:none;
+}
+.section-icon{
+  width:42px;height:42px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.section-meta{flex:1}
+.section-num{font-family:'Orbitron',sans-serif;font-size:8px;letter-spacing:3px;color:var(--muted);margin-bottom:2px}
+.section-title{font-size:15px;font-weight:800;color:var(--text)}
+.section-arrow{color:var(--muted);font-size:18px;transition:.3s;flex-shrink:0}
+.section.open .section-arrow{transform:rotate(180deg);color:var(--accent)}
+
+.section-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .4s cubic-bezier(.22,1,.36,1);
+}
+.section.open .section-body{max-height:2000px}
+.section-content{padding:0 18px 20px}
+.divider{height:1px;background:var(--border);margin-bottom:16px}
+
+/* ── STEPS ── */
+.steps{display:flex;flex-direction:column;gap:14px}
+.step{display:flex;gap:14px;align-items:flex-start}
+.step-num{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',sans-serif;font-size:11px;font-weight:900;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#000;margin-top:1px;
+}
+.step-body{}
+.step-title{font-size:13px;font-weight:800;color:var(--text);margin-bottom:3px}
+.step-desc{font-size:12px;color:var(--muted);line-height:1.7}
+.step-desc b{color:var(--text)}
+
+/* ── TIP BOX ── */
+.tip{
+  display:flex;gap:10px;align-items:flex-start;
+  background:rgba(0,207,255,.06);
+  border:1px solid rgba(0,207,255,.15);
+  border-radius:10px;padding:12px 14px;
+  margin-top:14px;
+}
+.tip-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.tip-text{font-size:12px;color:#7aaabf;line-height:1.7}
+.tip-text b{color:var(--accent)}
+
+/* ── WARNING BOX ── */
+.warn{
+  display:flex;gap:10px;align-items:flex-start;
+  background:rgba(255,152,0,.06);
+  border:1px solid rgba(255,152,0,.2);
+  border-radius:10px;padding:12px 14px;
+  margin-top:14px;
+}
+.warn-text{font-size:12px;color:#bf9a70;line-height:1.7}
+.warn-text b{color:var(--orange)}
+
+/* ── BADGE ROW ── */
+.badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10px;font-family:'Orbitron',sans-serif;font-weight:700;
+  letter-spacing:.5px;padding:4px 10px;border-radius:6px;
+}
+.b-cyan{background:rgba(0,207,255,.1);color:var(--accent);border:1px solid rgba(0,207,255,.25)}
+.b-green{background:rgba(0,230,118,.1);color:var(--green);border:1px solid rgba(0,230,118,.25)}
+.b-gold{background:rgba(255,215,0,.1);color:var(--gold);border:1px solid rgba(255,215,0,.25)}
+.b-orange{background:rgba(255,152,0,.1);color:var(--orange);border:1px solid rgba(255,152,0,.25)}
+.b-red{background:rgba(255,61,87,.1);color:var(--red);border:1px solid rgba(255,61,87,.25)}
+
+/* ── SCREENSHOT MOCKUP ── */
+.mockup{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;padding:12px;
+  margin-top:12px;font-size:11px;
+  color:var(--muted);line-height:1.8;
+}
+.mockup-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border)}
+.mockup-row:last-child{border-bottom:none}
+.mockup-label{color:var(--text);font-weight:600}
+.mockup-val{color:var(--accent);font-family:'Orbitron',sans-serif;font-size:10px}
+
+/* ── ANIMATE ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.section{animation:fadeUp .4s both}
+.section:nth-child(1){animation-delay:.05s}
+.section:nth-child(2){animation-delay:.1s}
+.section:nth-child(3){animation-delay:.15s}
+.section:nth-child(4){animation-delay:.2s}
+.section:nth-child(5){animation-delay:.25s}
+.section:nth-child(6){animation-delay:.3s}
+
+/* ── PROGRESS BAR ── */
+.read-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:999;transition:width .1s;width:0%}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="read-progress" id="progress"></div>
+
+<!-- HEADER -->
+<div class="header">
+  <button class="header-back" onclick="history.back()">←</button>
+  <div>
+    <div class="header-title">USER GUIDE</div>
+    <div class="header-sub">MASTER LEAGUE TOURNAMENT MANAGER</div>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc" id="toc">
+  <button class="toc-btn active" onclick="scrollTo('s1',this)">🏆 Create League</button>
+  <button class="toc-btn" onclick="scrollTo('s2',this)">👥 Teams & Players</button>
+  <button class="toc-btn" onclick="scrollTo('s3',this)">⚽ Match Scores</button>
+  <button class="toc-btn" onclick="scrollTo('s4',this)">📊 Standings</button>
+  <button class="toc-btn" onclick="scrollTo('s5',this)">🌟 Champions League</button>
+  <button class="toc-btn" onclick="scrollTo('s6',this)">📤 Export & Share</button>
+</div>
+
+<!-- SECTIONS -->
+<div class="sections">
+
+  <!-- 1. CREATE LEAGUE -->
+  <div class="section open" id="s1">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:linear-gradient(135deg,rgba(0,207,255,.15),rgba(0,85,221,.15));border:1px solid rgba(0,207,255,.2)">🏆</div>
+      <div class="section-meta">
+        <div class="section-num">SECTION 01</div>
+        <div class="section-title">Create a League</div>
+      </div>
+      <div class="section-arrow">⌄</div>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+        <div class="divider"></div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <div class="step-title">Tap the + Button</div>
+              <div class="step-desc">On the home screen, tap the <b>blue + button</b> at the bottom right corner to open the league creation menu.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Choose League Type</div>
+              <div class="step-desc">Select your format: <b>Regular League</b> (round-robin), <b>Knockout</b> (elimination), or <b>Champions League</b> (groups + knockout).</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <div class="step-title">Enter League Name</div>
+              <div class="step-desc">Type a name for your league e.g. <b>"Street Kings Season 1"</b>. This will appear on all standings and exported results.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <div class="step-title">Set Number of Teams</div>
+              <div class="step-desc">Choose how many teams will participate. <b>Minimum 2</b>, maximum depends on league type. Even numbers recommended for balanced fixtures.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <div class="step-title">Confirm & Create</div>
+              <div class="step-desc">Tap <b>"Create League"</b> — your league is live instantly and ready for teams to be added.</div>
+            </div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-cyan">⚡ Instant Setup</span>
+          <span class="badge b-green">✓ Auto Fixtures</span>
+          <span class="badge b-gold">🏆 Multiple Formats</span>
+        </div>
+        <div class="tip">
+          <div class="tip-icon">💡</div>
+          <div class="tip-text">You can create <b>multiple leagues</b> at the same time. Star your favourite league to pin it to the top of your list.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. TEAMS & PLAYERS -->
+  <div class="section" id="s2">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:linear-gradient(135deg,rgba(0,230,118,.12),rgba(0,150,80,.12));border:1px solid rgba(0,230,118,.2)">👥</div>
+      <div class="section-meta">
+        <div class="section-num">SECTION 02</div>
+        <div class="section-title">Add Teams & Players</div>
+      </div>
+      <div class="section-arrow">⌄</div>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+        <div class="divider"></div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <div class="step-title">Open Your League</div>
+              <div class="step-desc">Tap on your league from the home screen to open it, then navigate to the <b>Teams</b> tab.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Add a Team</div>
+              <div class="step-desc">Tap <b>"Add Team"</b> and enter the team name. You can add as many teams as your league allows.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <div class="step-title">Add Players to Team</div>
+              <div class="step-desc">Tap on any team → tap <b>"Add Player"</b> → enter player name and position. Repeat for all players.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <div class="step-title">Assign Team Manager</div>
+              <div class="step-desc">Optionally assign a <b>manager name</b> to each team. This helps identify real-life owners of each team in the tournament.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mockup">
+          <div class="mockup-row"><span class="mockup-label">Team Name</span><span class="mockup-val">FC MUQTEER</span></div>
+          <div class="mockup-row"><span class="mockup-label">Players</span><span class="mockup-val">11 ADDED</span></div>
+          <div class="mockup-row"><span class="mockup-label">Manager</span><span class="mockup-val">MUQTEER</span></div>
+          <div class="mockup-row"><span class="mockup-label">Status</span><span class="mockup-val" style="color:var(--green)">✓ READY</span></div>
+        </div>
+        <div class="tip">
+          <div class="tip-icon">💡</div>
+          <div class="tip-text">Add all teams <b>before</b> the league starts. Fixtures are auto-generated based on the number of teams you add.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. MATCH SCORES -->
+  <div class="section" id="s3">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:linear-gradient(135deg,rgba(255,215,0,.12),rgba(255,150,0,.12));border:1px solid rgba(255,215,0,.2)">⚽</div>
+      <div class="section-meta">
+        <div class="section-num">SECTION 03</div>
+        <div class="section-title">Enter Match Scores</div>
+      </div>
+      <div class="section-arrow">⌄</div>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+        <div class="divider"></div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <div class="step-title">Go to Fixtures</div>
+              <div class="step-desc">Open your league and tap the <b>Fixtures</b> tab. All scheduled matches are listed by matchday.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Find the Match</div>
+              <div class="step-desc">Scroll to find the match you played. Matches are sorted by <b>Matchday</b> — e.g. Matchday 1, Matchday 2.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <div class="step-title">Tap to Enter Score</div>
+              <div class="step-desc">Tap the match row → enter the <b>Home score</b> and <b>Away score</b> using the number pad.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <div class="step-title">Add Goalscorers (Optional)</div>
+              <div class="step-desc">After entering the score, you can add which <b>players scored</b>. This updates the top scorers chart automatically.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <div class="step-title">Save the Result</div>
+              <div class="step-desc">Tap <b>"Save"</b> — standings, points and goal difference update <b>instantly and automatically</b>.</div>
+            </div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-green">✓ Auto Standings</span>
+          <span class="badge b-cyan">⚡ Live Update</span>
+          <span class="badge b-gold">⚽ Top Scorers</span>
+        </div>
+        <div class="warn">
+          <div class="tip-icon">⚠️</div>
+          <div class="warn-text">Entered a wrong score? Tap the match again and <b>edit the score</b> — standings will recalculate automatically.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. STANDINGS -->
+  <div class="section" id="s4">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:linear-gradient(135deg,rgba(0,207,255,.12),rgba(180,0,255,.12));border:1px solid rgba(0,207,255,.2)">📊</div>
+      <div class="section-meta">
+        <div class="section-num">SECTION 04</div>
+        <div class="section-title">View Standings & Stats</div>
+      </div>
+      <div class="section-arrow">⌄</div>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+        <div class="divider"></div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <div class="step-title">Open Standings Tab</div>
+              <div class="step-desc">Inside your league, tap the <b>Standings</b> tab to see the full league table sorted by points.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Read the Table</div>
+              <div class="step-desc">Each row shows: <b>Position, Team, Played (P), Won (W), Drawn (D), Lost (L), Goals For (GF), Goals Against (GA), Goal Difference (GD), Points (PTS)</b>.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <div class="step-title">Check Top Scorers</div>
+              <div class="step-desc">Tap the <b>Stats</b> tab to see the top goalscorers leaderboard — updated after every match result.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <div class="step-title">Tiebreaker Rules</div>
+              <div class="step-desc">If two teams have equal points, the tiebreaker order is: <b>Goal Difference → Goals Scored → Head-to-Head result</b>.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mockup">
+          <div class="mockup-row"><span class="mockup-label">🥇 1st Place</span><span class="mockup-val" style="color:var(--gold)">FC MUQTEER — 21 PTS</span></div>
+          <div class="mockup-row"><span class="mockup-label">🥈 2nd Place</span><span class="mockup-val">CITY FC — 18 PTS</span></div>
+          <div class="mockup-row"><span class="mockup-label">🥉 3rd Place</span><span class="mockup-val">UNITED — 15 PTS</span></div>
+          <div class="mockup-row"><span class="mockup-label">⚽ Top Scorer</span><span class="mockup-val" style="color:var(--green)">RONALDO — 12 GOALS</span></div>
+        </div>
+        <div class="tip">
+          <div class="tip-icon">💡</div>
+          <div class="tip-text">Standings update <b>in real time</b> as soon as you save a match result. Share the table with your friends using the Export button.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. CHAMPIONS LEAGUE -->
+  <div class="section" id="s5">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,100,0,.12));border:1px solid rgba(255,215,0,.25)">🌟</div>
+      <div class="section-meta">
+        <div class="section-num">SECTION 05</div>
+        <div class="section-title">Champions League Mode</div>
+      </div>
+      <div class="section-arrow">⌄</div>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+        <div class="divider"></div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <div class="step-title">Select Champions League Format</div>
+              <div class="step-desc">When creating a new league, choose <b>"Champions League"</b> format. Best for 8, 16 or 32 teams.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Group Stage</div>
+              <div class="step-desc">Teams are divided into <b>groups of 4</b>. Each team plays everyone else in their group. <b>Top 2</b> from each group advance.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <div class="step-title">Knockout Rounds</div>
+              <div class="step-desc">After groups, teams enter <b>Round of 16 → Quarter Finals → Semi Finals → Final</b>. One loss and you're out!</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <div class="step-title">Advance Teams Manually</div>
+              <div class="step-desc">After all group matches are played, tap <b>"Advance to Knockout"</b> — the app automatically places qualified teams into the bracket.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <div class="step-title">Crown the Champion</div>
+              <div class="step-desc">When the Final is played and the result saved, the <b>winner screen appears</b> automatically with confetti and trophy! 🏆</div>
+            </div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-gold">🌟 Group Stage</span>
+          <span class="badge b-orange">⚡ Knockout</span>
+          <span class="badge b-red">🏆 Grand Final</span>
+        </div>
+        <div class="tip">
+          <div class="tip-icon">💡</div>
+          <div class="tip-text">Champions League mode works best with <b>8 or 16 teams</b> for perfectly balanced groups and knockout brackets.</div>
+        </div>
+        <div class="warn">
+          <div class="tip-icon">⚠️</div>
+          <div class="warn-text">Make sure <b>all group stage matches</b> are completed before advancing to knockout rounds. Incomplete groups affect bracket seeding.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. EXPORT & SHARE -->
+  <div class="section" id="s6">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:linear-gradient(135deg,rgba(0,230,118,.12),rgba(0,207,255,.12));border:1px solid rgba(0,230,118,.2)">📤</div>
+      <div class="section-meta">
+        <div class="section-num">SECTION 06</div>
+        <div class="section-title">Export & Share Results</div>
+      </div>
+      <div class="section-arrow">⌄</div>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+        <div class="divider"></div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <div class="step-title">Find the Export Button</div>
+              <div class="step-desc">Inside any league, tap the <b>clipboard/share icon</b> at the top right of the screen.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Choose What to Export</div>
+              <div class="step-desc">Select from: <b>Standings Table, Fixtures List, Top Scorers,</b> or <b>Full League Summary</b>.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <div class="step-title">Export as Image</div>
+              <div class="step-desc">Tap <b>"Export as Image"</b> — the app generates a clean shareable image of your standings or results automatically.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <div class="step-title">Share to WhatsApp / Social</div>
+              <div class="step-desc">After export, tap <b>"Share"</b> — choose WhatsApp, Telegram, Instagram, or any app to share results with your group.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <div class="step-title">Copy as Text</div>
+              <div class="step-desc">Prefer text? Tap <b>"Copy Text"</b> to copy the full standings as formatted text — perfect for WhatsApp groups.</div>
+            </div>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge b-green">📸 Image Export</span>
+          <span class="badge b-cyan">📋 Copy Text</span>
+          <span class="badge b-gold">📱 Share Anywhere</span>
+        </div>
+        <div class="tip">
+          <div class="tip-icon">💡</div>
+          <div class="tip-text">Share your league standings in your <b>WhatsApp group</b> after every matchday to keep everyone updated and engaged!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end sections -->
+
+<script>
+// Toggle accordion
+function toggle(header){
+  const section = header.parentElement;
+  const isOpen = section.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('open'));
+  // Open clicked if it was closed
+  if(!isOpen) section.classList.add('open');
+}
+
+// Scroll to section
+function scrollTo(id, btn){
+  document.querySelectorAll('.toc-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const el = document.getElementById(id);
+  if(el){
+    // Open the section
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('open'));
+    el.classList.add('open');
+    setTimeout(()=>{
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 50);
+  }
+}
+
+// Read progress bar
+window.addEventListener('scroll', function(){
+  const scrollTop = window.scrollY;
+  const docHeight = document.body.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  document.getElementById('progress').style.width = progress + '%';
+});
+
+// Highlight active TOC on scroll
+const sections = ['s1','s2','s3','s4','s5','s6'];
+const toc = document.querySelectorAll('.toc-btn');
+window.addEventListener('scroll', function(){
+  let current = 0;
+  sections.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if(el && el.getBoundingClientRect().top < 120) current = i;
+  });
+  toc.forEach(b => b.classList.remove('active'));
+  toc[current].classList.add('active');
+});
+</script>
+</body>
+</html>
